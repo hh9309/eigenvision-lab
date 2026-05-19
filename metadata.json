@@ -1,0 +1,8 @@
+{
+  "name": "EigenVision",
+  "description": "高密度技术仪表盘，用于交互式线性代数探索，具有 2D/3D 可视化和 AI 驱动的教学功能。",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
