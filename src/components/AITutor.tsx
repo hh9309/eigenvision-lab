@@ -19,8 +19,23 @@ export const AITutor: React.FC<AITutorProps> = ({ currentContext, layout = 'floa
   
   const [messages, setMessages] = useState<{ role: 'ai' | 'user'; text: string }[]>(() => {
     const saved = localStorage.getItem('aitutor_messages');
-    return saved ? JSON.parse(saved) : [
-      { role: 'ai', text: "观察图中红色的向量 **v1**。在线性变换时，如果向量的方向保持不变（仅发生缩放），它就是**特征向量**。缩放的倍数即为**特征值**。这种“不动”的方向揭示了矩阵变换的内在逻辑。" }
+    try {
+      if (saved) {
+        // Evaluate if saved has "红色的向量 v1" or "v1" and clean it
+        const parsed = JSON.parse(saved);
+        return parsed.map((m: any) => {
+          if (m.role === 'ai' && m.text.includes('红色的向量 **v1**')) {
+            return { ...m, text: m.text.replace('红色的向量 **v1**', '绿色的向量 **v2**') };
+          }
+          if (m.role === 'ai' && m.text.includes('红色的向量 v1')) {
+            return { ...m, text: m.text.replace('红色的向量 v1', '绿色的向量 v2') };
+          }
+          return m;
+        });
+      }
+    } catch (e) {}
+    return [
+      { role: 'ai', text: "注意看，绿色的向量 **v2** 在整个线性变换过程中，其方向并没有改变，只是发生了长度缩放。这就是该空间变换的一个主要特征轴。" }
     ];
   });
   const [input, setInput] = useState('');
@@ -38,7 +53,7 @@ export const AITutor: React.FC<AITutorProps> = ({ currentContext, layout = 'floa
   const isSidebar = layout === 'sidebar';
 
   const clearHistory = () => {
-    const defaultMsg = { role: 'ai' as const, text: "观察图中红色的向量 **v1**。在线性变换时，如果向量的方向保持不变（仅发生缩放），它就是**特征向量**。缩放的倍数即为**特征值**。这种“不动”的方向揭示了矩阵变换的内在逻辑。" };
+    const defaultMsg = { role: 'ai' as const, text: "注意看，绿色的向量 **v2** 在整个线性变换过程中，其方向并没有改变，只是发生了长度缩放。这就是该空间变换的一个主要特征轴。" };
     setMessages([defaultMsg]);
   };
 

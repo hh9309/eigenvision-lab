@@ -85,7 +85,7 @@ export const MatrixInput: React.FC<MatrixInputProps & { theme?: 'light' | 'dark'
             </>
           ) : (
             <>
-              <button onClick={() => setPreset([[1, 0], [0, 1]])} className="preset-btn">单位矩阵</button>
+              <button onClick={() => setPreset([[1, 0], [0, 2]])} className="preset-btn">Y轴拉伸</button>
               <button onClick={() => setPreset([[2, 0], [0, 1]])} className="preset-btn">X轴拉伸</button>
               <button onClick={() => setPreset([[1, 0.5], [0, 1]])} className="preset-btn">水平剪切</button>
               <button onClick={() => setPreset([[0, -1], [1, 0]])} className="preset-btn">旋转 90°</button>
